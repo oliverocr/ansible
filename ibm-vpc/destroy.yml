@@ -1,0 +1,83 @@
+---
+- name: Destroy IBM Cloud VPC
+  hosts: localhost
+  collections:
+   - ibm.cloudcollection
+  tasks:
+    - name: Fetch the variables from var file
+      include_vars:
+        file: vars.yml
+
+    - name: Checking for existing VPC Subnet Openshift
+      ibm_is_subnet_info:
+        name: "{{ subnet_name_openshift }}"
+      failed_when:
+        - subnet.rc != 0
+        - '"No subnet found" not in subnet.stderr'
+      register: subnet
+
+    - name: Remove VPC Subnet Openshift
+      ibm_is_subnet:
+        state: absent
+        id: "{{ subnet.resource.id }}"
+      when: subnet.resource.id is defined
+
+    - name: Checking for existing VPC Subnet VPE
+      ibm_is_subnet_info:
+        name: "{{ subnet_name_vpe }}"
+      failed_when:
+        - subnet.rc != 0
+        - '"No subnet found" not in subnet.stderr'
+      register: subnet
+
+    - name: Remove VPC Subnet VPE
+      ibm_is_subnet:
+        state: absent
+        id: "{{ subnet.resource.id }}"
+      when: subnet.resource.id is defined
+
+    - name: Checking for existing VPC Subnet LBA
+      ibm_is_subnet_info:
+        name: "{{ subnet_name_lba }}"
+      failed_when:
+        - subnet.rc != 0
+        - '"No subnet found" not in subnet.stderr'
+      register: subnet
+
+    - name: Remove VPC Subnet VPE
+      ibm_is_subnet:
+        state: absent
+        id: "{{ subnet.resource.id }}"
+      when: subnet.resource.id is defined
+
+    - name: Checking for existing Address Prefix
+      ibm_is_vpc_address_prefix_info:
+        name: "{{ prefix_name }}"
+      failed_when:
+        - subnet.rc != 0
+        - '"No subnet found" not in subnet.stderr'
+      register: address_prefix_output
+
+    - name: Checking for existing VPC
+      ibm_is_vpc_info:
+        name: "{{ vpc_name }}"
+      failed_when:
+        - vpc.rc != 0
+        - '"No VPC found" not in vpc.stderr'
+      register: vpc
+
+    - name: Remove Address Prefix
+      ibm_is_vpc_address_prefix:
+        name: "{{ prefix_name }}"
+        state: absent
+        vpc: "{{ vpc.resource.id }}"
+        cidr: "{{ address_prefix }}"
+        zone: "{{ zone }}"
+        is_default: true
+      register: address_prefix_output
+
+    - name: Remove VPC
+      ibm_is_vpc:
+        state: absent
+        id: "{{ vpc.resource.id }}"
+      when: vpc.resource.id is defined
