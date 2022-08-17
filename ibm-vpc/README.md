@@ -1,9 +1,6 @@
-# IBM Cloud Ansible: VPC Virtual Server Instance
+# IBM Cloud Ansible: VPC Virtual Private Cloud
 
-This example creates a Virtual Server Instance (VSI) inside of a Virtual
-Private Cloud (VPC). The VSI is configured to allow incoming SSH connections
-through a publicly accessible IP address and authenticated using an SSH key
-pair.
+This example creates a VPC with Ansible
 
 ## VPC Resources
 
