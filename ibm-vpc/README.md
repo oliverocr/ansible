@@ -61,14 +61,6 @@ To create all resources and test public SSH connection to the VM:
     ansible-playbook destroy.yml
     ```
 
-### List
-
-1. To list available VSI Images and Profiles run the 'list_vsi_images_and_profiles' playbook:
-
-    ```
-    ansible-playbook list_vsi_images_and_profiles.yml
-    ```
-
 [retrieve available images]: #list-available-vsi-images-and-profiles
 [retrieve available profiles]: #list-available-vsi-images-and-profiles
 [Ansible search path]:https://docs.ansible.com/ansible/latest/dev_guide/overview_architecture.html#ansible-search-path
