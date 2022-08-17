@@ -1,0 +1,14 @@
+---
+name_prefix: "Prefix Name"
+name_rg: "Resource Group Name"
+vpc_name: "{{ name_prefix }}"
+resource_group_name: "{{ name_rg }}"
+prefix_name: "{{ name_prefix }}-prefix"
+address_prefix: "IP Range""
+subnet_name_a: "Subnet Name"
+subnet_name_b: "Subnet Name"
+subnet_name_c: "Subnet Name"
+a_total_ipv4_address_count: 128
+b_total_ipv4_address_count: 64
+c_total_ipv4_address_count: 32
+zone: br-sao-3
